@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>MozVisibility test</title>
+</head>
+<body>
+	<h1>MozVisibility test</h1>
+	<p>Look in the console.</p>
+	<script src="../js/mozvisibility.js"></script>
+	<script>
+		if (!MozVisibility.canBeEmulated()) {
+			console.log('Cannot be emulated in this browser.');
+		} else {
+			document.addEventListener("mozvisibilitychange", function () {
+				console.log('On', (new Date()).toTimeString(), 'tab became ', document.mozHidden ? 'invisible' : 'visible');
+			}, false);
+		}
+	</script>
+</body>
+</html>
