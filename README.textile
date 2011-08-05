@@ -43,7 +43,10 @@ h2. Limitations & known issues
 
 h2. Read more
 
-* 
+* "Page Visibility Editor's Draft":http://www.w3c-test.org/webperf/specs/PageVisibility/
+* "Bug 633421 — Clamp setTimeout/setInterval to something higher than 10ms in inactive tabs":https://bugzilla.mozilla.org/show_bug.cgi?id=633421
+* "Google code — Using the Page Visibility API":http://code.google.com/chrome/whitepapers/pagevisibility.html
+* "IE9 Test Drive — Page Visibility API":http://ie.microsoft.com/testdrive/Performance/PageVisibility/Default.html
 
 h2. License
 
