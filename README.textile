@@ -1,6 +1,6 @@
 h1. MozVisibility
 
-"Page Visibility API":http://www.w3c-test.org/webperf/specs/PageVisibility/ allows site developers to programmatically determine the current visibility of a document and be notified of visibility changes. At this moment only Chrome 13+ and IE9+ natively support Page Visibility API and according to "Firefox Release Tracking":https://wiki.mozilla.org/Features/Release_Tracking its support is not expected in upcoming FF releases. MozVisibility - a small library that designed to eliminate this disadvantage. 
+"Page Visibility API":http://www.w3c-test.org/webperf/specs/PageVisibility/ allows site developers to programmatically determine the current visibility of a document and be notified of visibility changes. At this moment only Chrome 13+ and IE9+ natively support Page Visibility API and according to "Firefox Release Tracking":https://wiki.mozilla.org/Features/Release_Tracking its support is not expected in upcoming FF releases. MozVisibility is designed to eliminate this disadvantage. 
 
 By using MozVisibility you can partially emulate Page Visibility API in Firefox 5.0+.
 
@@ -40,6 +40,10 @@ h2. Limitations & known issues
 * The library determines page as invisible ONLY when it is in the background tab. Other types of invisiblity cannot be detected at this time.
 * Time between setting page invisible and firing the “mozvisibilitychange” event may be up to 2 seconds (for obvious reasons).
 * There is a small probability of false "mozvisibilitychange" event invocation.
+
+h2. Read more
+
+* 
 
 h2. License
 
