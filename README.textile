@@ -1,0 +1,53 @@
+h1. MozVisibility
+
+MozVisibility - a small library for partial emulation of "Page Visibility API":http://www.w3.org/TR/2011/WD-page-visibility-20110602/ in Firefox 5.0+.
+
+At this moment only Chrome 13+ and IE9+ natively support Page Visibility API.
+
+
+h2. How it works
+
+Functioning principle of this library is based on the "following feature, introduced in Firefox 5.0":https://bugzilla.mozilla.org/show_bug.cgi?id=633421: when the page is in inactive tab Firefox clamps setTimeout/setInterval that lesser than 1 second to 1 second.
+
+Therefore, by setting timeout with 500ms delay and calculating the actual delay between setting and firing timeout, we can detect wether page visible or not.
+
+
+h2. Usage
+
+Add mozvisibility.js to your project. 
+
+h3. document.mozVisibilityState & document.mozHidden
+
+To detect wether page visible or not, you can use the following properties:
+<pre>document.mozVisibilityState 	// can be ‘visible’ or ‘hidden’
+document.mozHidden 				// can be true or false
+</pre>
+
+h3. “mozvisibilitychange” event
+
+<pre>document.addEventListener("mozvisibilitychange", function () {
+	console.log(‘Page became', document.mozHidden ? 'invisible' : 'visible');
+}, false);
+</pre>
+
+h3. visibility.js
+
+You can also use this library in conjunction with "visibility.js":https://github.com/evilmartians/visibility.js. In this case include mozvisibility.js BEFORE visiblity.js.
+
+h2. Limitations & known issues
+
+* The library detects page as invisible ONLY when it is in the background tab. Other types of invisiblity cannot be detected at this time.
+* Time between setting page invisible and firing the “mozvisibilitychange” event may be up to 2 seconds (for obvious reasons).
+* There is a small probability of false "mozvisibilitychange" event invocation.
+
+h2. License
+
+h3. MIT License
+
+Copyright (c) 2011 Vladimir Zhuravlev
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. 
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
