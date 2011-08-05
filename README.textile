@@ -1,15 +1,14 @@
 h1. MozVisibility
 
-MozVisibility - a small library for partial emulation of "Page Visibility API":http://www.w3.org/TR/2011/WD-page-visibility-20110602/ in Firefox 5.0+.
+"Page Visibility API":http://www.w3c-test.org/webperf/specs/PageVisibility/ allows site developers to programmatically determine the current visibility of a document and be notified of visibility changes. At this moment only Chrome 13+ and IE9+ natively support Page Visibility API and according to "Firefox Release Tracking":https://wiki.mozilla.org/Features/Release_Tracking its support is not expected in upcoming FF releases. MozVisibility - a small library that designed to eliminate this disadvantage. 
 
-At this moment only Chrome 13+ and IE9+ natively support Page Visibility API.
-
+By using MozVisibility you can partially emulate Page Visibility API in Firefox 5.0+.
 
 h2. How it works
 
 Functioning principle of this library is based on the "following feature, introduced in Firefox 5.0":https://bugzilla.mozilla.org/show_bug.cgi?id=633421: when the page is in inactive tab Firefox clamps setTimeout/setInterval that lesser than 1 second to 1 second.
 
-Therefore, by setting timeout with 500ms delay and calculating the actual delay between setting and firing timeout, we can detect wether page visible or not.
+Therefore, by setting timeout with 500ms delay and calculating the actual delay between setting and firing timeout, we can determine wether page visible or not.
 
 
 h2. Usage
@@ -18,7 +17,7 @@ Add mozvisibility.js to your project.
 
 h3. document.mozVisibilityState & document.mozHidden
 
-To detect wether page visible or not, you can use the following properties:
+You can use the following properties to determine wether page visible or not:
 <pre>document.mozVisibilityState 	// can be ‘visible’ or ‘hidden’
 document.mozHidden		// can be true or false
 </pre>
@@ -36,7 +35,7 @@ You can also use this library in conjunction with "visibility.js":https://github
 
 h2. Limitations & known issues
 
-* The library detects page as invisible ONLY when it is in the background tab. Other types of invisiblity cannot be detected at this time.
+* The library determine page as invisible ONLY when it is in the background tab. Other types of invisiblity cannot be detected at this time.
 * Time between setting page invisible and firing the “mozvisibilitychange” event may be up to 2 seconds (for obvious reasons).
 * There is a small probability of false "mozvisibilitychange" event invocation.
 
