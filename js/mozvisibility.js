@@ -1,15 +1,14 @@
-(function() {
+;(function() {
 	MozVisibility = {
 		_NUMBER_OF_ATTEMPTS: 2,
 		_CHECK_TIMEOUT: 800,
-		_TRESHOLD: 900,
+		_TIMEOUT_TRESHOLD: 900,
 
 		_getEvent: function() {
 			if (!this._event) {
 				this._event = document.createEvent('HTMLEvents');
 				this._event.initEvent('mozvisibilitychange', true, true);
 				this._event.eventName = 'mozvisibilitychange';
-				this._event.memo = {};
 			}
 			return this._event;
 		},
@@ -46,20 +45,18 @@
 
 				date = newdate;
 
-				if (delta > self._TRESHOLD && isVisible ||
-					delta < self._TRESHOLD && !isVisible) {
+				if (delta > self._TIMEOUT_TRESHOLD && isVisible ||
+					delta < self._TIMEOUT_TRESHOLD && !isVisible) {
 
 					hits++;
 
-					if (hits >= self._NUMBER_OF_ATTEMPTS) {
-						isVisible = !isVisible;
+					if (hits >= self._NUMBER_OF_ATTEMPTS || !isVisible) {
 						hits = 0;
-
+						isVisible = !isVisible;
 						self._setVisibilityState(isVisible ? 'visible' : 'hidden');
-						setTimeout(visibilityCheck, self._CHECK_TIMEOUT);
-					} else {
-						setTimeout(visibilityCheck, 0);
 					}
+
+					setTimeout(visibilityCheck, isVisible ? self._CHECK_TIMEOUT : 0);
 				} else {
 					hits = 0;
 					setTimeout(visibilityCheck, self._CHECK_TIMEOUT);
@@ -68,6 +65,8 @@
 
 			this._setVisibilityState('visible');
 			visibilityCheck();
+			
+			return true;
 		}
 	}
 
