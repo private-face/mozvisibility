@@ -13,7 +13,7 @@
 			console.log('Cannot be emulated in this browser.');
 		} else {
 			document.addEventListener("mozvisibilitychange", function () {
-				console.log('On', (new Date()).toTimeString(), 'tab became ', document.mozHidden ? 'invisible' : 'visible');
+				console.log('On', (new Date()).toTimeString(), 'page became', document.mozHidden ? 'invisible' : 'visible');
 			}, false);
 		}
 	</script>
