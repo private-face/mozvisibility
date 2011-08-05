@@ -20,7 +20,7 @@ h3. document.mozVisibilityState & document.mozHidden
 
 To detect wether page visible or not, you can use the following properties:
 <pre>document.mozVisibilityState 	// can be ‘visible’ or ‘hidden’
-document.mozHidden 				// can be true or false
+document.mozHidden		// can be true or false
 </pre>
 
 h3. “mozvisibilitychange” event
