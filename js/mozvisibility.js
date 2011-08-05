@@ -2,6 +2,7 @@
 	MozVisibility = {
 		_NUMBER_OF_ATTEMPTS: 2,
 		_CHECK_TIMEOUT: 800,
+		_TRESHOLD: 900,
 
 		_getEvent: function() {
 			if (!this._event) {
@@ -45,18 +46,20 @@
 
 				date = newdate;
 
-				if (delta >= 900 && isVisible ||
-					delta < 1000 && !isVisible) {
+				if (delta > self._TRESHOLD && isVisible ||
+					delta < self._TRESHOLD && !isVisible) {
 
 					hits++;
+
 					if (hits >= self._NUMBER_OF_ATTEMPTS) {
 						isVisible = !isVisible;
 						hits = 0;
 
 						self._setVisibilityState(isVisible ? 'visible' : 'hidden');
+						setTimeout(visibilityCheck, self._CHECK_TIMEOUT);
+					} else {
+						setTimeout(visibilityCheck, 0);
 					}
-
-					setTimeout(visibilityCheck, 0);
 				} else {
 					hits = 0;
 					setTimeout(visibilityCheck, self._CHECK_TIMEOUT);
