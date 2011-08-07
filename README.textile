@@ -31,9 +31,9 @@ h3. “mozvisibilitychange” event
 </pre>
 
 
-h3. visibility.js
+h3. Visibility.js
 
-You can also use this library in conjunction with "visibility.js":https://github.com/evilmartians/visibility.js. In this case include mozvisibility.js BEFORE visibility.js.
+You can also use this library in conjunction with "Visibility.js":https://github.com/evilmartians/visibility.js. In this case include mozvisibility.js BEFORE visibility.js.
 
 h2. Limitations & known issues
 
