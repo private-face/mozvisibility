@@ -1,6 +1,6 @@
 h1. MozVisibility
 
-"Page Visibility API":http://www.w3c-test.org/webperf/specs/PageVisibility/ allows site developers to programmatically determine the current visibility of a document and be notified of visibility changes. At this moment only Chrome 13+ and IE9+ natively support Page Visibility API and according to "Firefox Release Tracking":https://wiki.mozilla.org/Features/Release_Tracking its support is not expected in upcoming FF releases. MozVisibility is designed to eliminate this disadvantage. 
+"Page Visibility API":http://www.w3c-test.org/webperf/specs/PageVisibility/ allows site developers to programmatically determine the current visibility of a document and be notified of visibility changes. At this moment only Chrome 13+ and IE10 natively support Page Visibility API and according to "Firefox Release Tracking":https://wiki.mozilla.org/Features/Release_Tracking its support is not expected in upcoming FF releases. MozVisibility is designed to eliminate this disadvantage. 
 
 By using MozVisibility you can partially emulate Page Visibility API in Firefox 5.0+.
 
