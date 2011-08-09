@@ -37,9 +37,9 @@ You can also use this library in conjunction with "Visibility.js":https://github
 
 h2. Limitations & known issues
 
-* The library determines page as invisible ONLY when it is in the background tab. Other types of invisiblity cannot be detected at this time.
-* Time between setting page invisible and firing the “mozvisibilitychange” event may be up to 2 seconds (for obvious reasons).
-* There is a small probability of false "mozvisibilitychange" event invocation.
+* Only 'visible' and 'hidden' states are supported.
+* The library determines page as 'hidden' ONLY when it is in the background tab. Other types of invisibility cannot be detected at this time.
+* Time between setting page invisible and firing the “mozvisibilitychange” event is 1 second (for obvious reasons).
 
 h2. Read more
 
