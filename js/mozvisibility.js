@@ -1,7 +1,6 @@
 ;(function() {
 	MozVisibility = {
-		_NUMBER_OF_ATTEMPTS: 2,
-		_CHECK_TIMEOUT: 800,
+		_MAX_TRIES: 10,
 		_TIMEOUT_TRESHOLD: 900,
 
 		_getEvent: function() {
@@ -34,38 +33,44 @@
 				return false;
 			}
 			
-			var date = new Date();
-			var hits = 0;
 			var isVisible = false;
 			var self = this;
-
-			function visibilityCheck() {
-				var newdate = new Date();
-				var delta = newdate - date;
-
-				date = newdate;
-
-				if (delta > self._TIMEOUT_TRESHOLD && isVisible ||
-					delta < self._TIMEOUT_TRESHOLD && !isVisible) {
-
-					hits++;
-
-					if (hits >= self._NUMBER_OF_ATTEMPTS || !isVisible) {
-						hits = 0;
-						isVisible = !isVisible;
-						self._setVisibilityState(isVisible ? 'visible' : 'hidden');
-					}
-
-					setTimeout(visibilityCheck, isVisible ? self._CHECK_TIMEOUT : 0);
-				} else {
-					hits = 0;
-					setTimeout(visibilityCheck, self._CHECK_TIMEOUT);
-				}
-			}
-
-			this._setVisibilityState('visible');
-			visibilityCheck();
+			var timer = null;
 			
+			window.addEventListener("blur", function() {
+				var date = new Date;
+				var tries = 0;
+
+				if (!isVisible) {
+				    return;
+				}
+				
+				function invisibilityCheck() {
+					var newdate = new Date;
+					var delta = newdate - date;
+
+					date = newdate;
+					tries++;
+
+					if (delta > self._TIMEOUT_TRESHOLD) {
+						isVisible = false;
+						self._setVisibilityState('hidden');
+					} else if (tries < self._MAX_TRIES) {
+						timer = setTimeout(invisibilityCheck, 0);
+					}
+				}
+				
+				invisibilityCheck();
+			}, false);
+
+			window.addEventListener("focus", function() {
+				clearTimeout(timer);
+				if (!isVisible) {
+					isVisible = true;
+					self._setVisibilityState('visible');
+				}
+			}, false);
+
 			return true;
 		}
 	}

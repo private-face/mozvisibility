@@ -2,18 +2,18 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>MozVisibility test</title>
+	<title>[visible]</title>
 </head>
 <body>
 	<h1>MozVisibility test</h1>
-	<p>Look in the console.</p>
 	<script src="../js/mozvisibility.js"></script>
 	<script>
 		if (!MozVisibility.canBeEmulated()) {
-			console.log('Cannot be emulated in this browser.');
+			document.write('This browser is not supported.');
 		} else {
+			document.write('Switch browser tab and watch for this page\'s title.');
 			document.addEventListener("mozvisibilitychange", function () {
-				console.log('On', (new Date()).toTimeString(), 'page became', document.mozHidden ? 'invisible' : 'visible');
+				document.title = '[' + (document.mozVisibilityState) + ']';
 			}, false);
 		}
 	</script>
