@@ -1,7 +1,19 @@
 ;(function() {
 	MozVisibility = {
 		_MAX_TRIES: 10,
-		_TIMEOUT_TRESHOLD: 900,
+		_date: new Date,
+		_tries: 0,
+		_timer: null,
+		
+		_isVisible: undefined,
+		
+		_proxy: function(fn, context) {
+			context = context || window;
+			
+			return function() {
+				fn.apply(context, arguments);
+			};
+		},
 
 		_getEvent: function() {
 			if (!this._event) {
@@ -13,19 +25,56 @@
 		},
 
 		_setVisibilityState: function(state) {
+			this._isVisible = (state === 'visible');
 		    document.mozVisibilityState = state;
-			document.mozHidden = (state !== 'visible');
+			document.mozHidden = !this._isVisible;
 		    document.dispatchEvent(this._getEvent());
 		},
 
+		_visibilityCheck: function() {
+			this._date = new Date;
+			this._tries = 0;
+			this._timer = setTimeout(this._invisibilityCheckTimeout, 0);
+		},
+
+		_invisibilityCheckTimeoutTemplate: function() {
+			var newdate = new Date;
+			var delta = newdate - this._date;
+
+			this._date = newdate;
+			this._tries++;
+
+			if (delta > 1000) {
+				this._setVisibilityState('hidden');
+			} else if (this._tries < this._MAX_TRIES) {
+				this._timer = setTimeout(this._invisibilityCheckTimeout, 0);
+			}
+		},
+		
+		_onFocus: function() {
+			clearTimeout(this._timer);
+			if (!this._isVisible) {
+				this._setVisibilityState('visible');
+			}
+		},
+		
+		_onBlur: function() {
+			if (!this._isVisible) {
+			    return;
+			}
+			
+			this._visibilityCheck();
+		},
+		
 		canBeEmulated: function() {
 			var rmozilla = /(mozilla)(?:.*? rv:([\w.]+))?/,
 				ua = navigator.userAgent.toLowerCase();
 
 			var match = ua.indexOf('compatible') < 0 && rmozilla.exec(ua) || [];
 
-			return (match[2] && parseInt(match[2]) >= 5 && 
-					!document.visibilityState && !document.MozVisibilityState);
+			return (window.top === window &&				// not in IFRAME
+					match[2] && parseInt(match[2]) >= 5 && 	// Firefox 5.0+
+					!document.visibilityState && !document.MozVisibilityState); // visibility API is not already supported
 		},
 		
 		emulate: function() {
@@ -33,47 +82,15 @@
 				return false;
 			}
 			
-			var isVisible = false;
-			var self = this;
-			var timer = null;
+			this._invisibilityCheckTimeout = this._proxy(this._invisibilityCheckTimeoutTemplate, this);
 			
-			window.addEventListener("blur", function() {
-				var date = new Date;
-				var tries = 0;
+			window.addEventListener("focus", this._proxy(this._onFocus, this), false);
+			window.addEventListener("blur", this._proxy(this._onBlur, this), false);
 
-				if (!isVisible) {
-				    return;
-				}
-				
-				function invisibilityCheck() {
-					var newdate = new Date;
-					var delta = newdate - date;
-
-					date = newdate;
-					tries++;
-
-					if (delta > self._TIMEOUT_TRESHOLD) {
-						isVisible = false;
-						self._setVisibilityState('hidden');
-					} else if (tries < self._MAX_TRIES) {
-						timer = setTimeout(invisibilityCheck, 0);
-					}
-				}
-				
-				invisibilityCheck();
-			}, false);
-
-			window.addEventListener("focus", function() {
-				clearTimeout(timer);
-				if (!isVisible) {
-					isVisible = true;
-					self._setVisibilityState('visible');
-				}
-			}, false);
-
+			this._visibilityCheck();
 			return true;
 		}
-	}
+	};
 
 	MozVisibility.emulate();
 })();

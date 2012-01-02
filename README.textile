@@ -39,7 +39,8 @@ h2. Limitations & known issues
 
 * Only 'visible' and 'hidden' states are supported.
 * The library determines page as 'hidden' ONLY when it is in the background tab. Other types of invisibility cannot be detected at this time.
-* Time between setting page invisible and firing the “mozvisibilitychange” event is 1 second (for obvious reasons).
+* There is a 1 second delay between the moment when page became invisible and firing "mozvisibilitychange" event.
+* Doesn't work in IFRAME.
 
 h2. Read more
 
