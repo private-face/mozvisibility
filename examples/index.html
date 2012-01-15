@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>[visible]</title>
+</head>
+<body>
+	<h1>MozVisibility test</h1>
+	<script src="../release/mozvisibility-0.6.min.js"></script>
+	<script>
+		if (!MozVisibility.canBeEmulated()) {
+			document.write('This page is inside an IFRAME or your browser is not supported.');
+		} else {
+			document.write('Switch browser tab and watch for the page title.');
+			document.addEventListener("mozvisibilitychange", function () {
+				document.title = '[' + (document.mozVisibilityState) + ']';
+			}, false);
+		}
+	</script>
+</body>
+</html>

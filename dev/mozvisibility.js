@@ -26,9 +26,9 @@
 
 		_setVisibilityState: function(state) {
 			this._isVisible = (state === 'visible');
-		    document.mozVisibilityState = state;
+			document.mozVisibilityState = state;
 			document.mozHidden = !this._isVisible;
-		    document.dispatchEvent(this._getEvent());
+			document.dispatchEvent(this._getEvent());
 		},
 
 		_visibilityCheck: function() {

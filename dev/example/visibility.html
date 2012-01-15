@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript" src="../mozvisibility.js"></script>
+	<script type="text/javascript" src="../visibility/visibility.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		i = 0;
+		console.log('visibility API is ' + (!Visibility.isSupported() ? 'not ' : '') + 'supported');
+		Visibility.every(2000, function () {
+		    console.log(i++);
+		});
+	</script>
+</body>
+</html>
