@@ -1,8 +1,6 @@
 h1. MozVisibility
 
-"Page Visibility API":http://www.w3c-test.org/webperf/specs/PageVisibility/ allows site developers to programmatically determine the current visibility of a document and be notified of visibility changes. At this moment only Chrome 13+ and IE10 natively support Page Visibility API and according to "Firefox Release Tracking":https://wiki.mozilla.org/Features/Release_Tracking its support is not expected in upcoming FF releases. MozVisibility is designed to eliminate this disadvantage. 
-
-By using MozVisibility you can partially emulate Page Visibility API in Firefox 5.0+.
+"Page Visibility API":http://www.w3c-test.org/webperf/specs/PageVisibility/ allows site developers to programmatically determine the current visibility of a document and be notified of visibility changes. At this moment Page Visibility API is natively supported in Chrome 13+, Firefox 10+ and IE10. MozVisibility is designed to partially emulate Page Visibility API in older Firefox versions (5—9).
 
 h2. How it works
 
@@ -46,6 +44,7 @@ h2. Read more
 
 * "Page Visibility Editor's Draft":http://www.w3c-test.org/webperf/specs/PageVisibility/
 * "Bug 633421 — Clamp setTimeout/setInterval to something higher than 10ms in inactive tabs":https://bugzilla.mozilla.org/show_bug.cgi?id=633421
+* "MDC — Using the Page Visibility API"https://developer.mozilla.org/en/DOM/Using_the_Page_Visibility_API
 * "Google code — Using the Page Visibility API":http://code.google.com/chrome/whitepapers/pagevisibility.html
 * "IE9 Test Drive — Page Visibility API":http://ie.microsoft.com/testdrive/Performance/PageVisibility/Default.html
 
